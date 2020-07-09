@@ -141,9 +141,28 @@ def pasval(password):
     global rootPassword
     global validationPass
 
-    if len(password) >= 5 and len(password) <= 20:
-        print("it works")
-        return True
+    SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
+                  ']', ':', ';', '<', '>', '.', '?', '/', '.', "'", "\\"]
+    spatie = [' ']
+    # splitstring = password.split()
+
+    # for char in splitstring:
+        # if char.isalpha():
+    if len(password) >= 8 and len(password) <= 30:
+        if any(char in SpecialSym for char in password):
+            if any(char.isupper() for char in password):
+                if any(char.islower() for char in password):
+                    if not any(char in spatie for char in password):
+                        print("it works")
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
     else:
         print("ERROR")
         return False
@@ -153,8 +172,8 @@ def userval(username):
     global rootUsername
     global validation
 
-    # SpecialSym = ['~','!','@','#','$','%','^', '&','*','_','-','+','=','`','|','(',')','{','}','[',']',':',';','<', '>','.','?','/','.', "'", "\\"]
     specialSym = ['-', '_',"'",'.']
+    spatie = [' ']
 
     splitstring = username.split()
 
@@ -162,16 +181,20 @@ def userval(username):
         if input[0].isalpha():
             if len(username) >= 5 and len(username) <= 20:
                 if any(char.isdigit() for char in username):
-                    print("User name it works")
-                    return True
+                    if any(char in specialSym for char in username):
+                        if not any(char in spatie for char in username):
+                            print("User name it works")
+                            return True
+                        else:
+                            return False
+                    else:
+                        return False
                 else:
                     return False
             else:
                 return False
         else:
             return False
-
-
     else:
        return False
         # return validation == False
@@ -221,7 +244,7 @@ while True:
                         while True:
                             password = input("Enter a password:")
                             validationPass = pasval(password)
-                            try: 
+                            try:
                                 if validationPass == True:
                                     password1 = input("Confirm password:")
                                     try:
