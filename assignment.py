@@ -118,8 +118,14 @@ while True:
                     rootInput = input("Create System Admin or Logout (c/l): ")
                     if rootInput == "c":
                         username  = input("Enter a username:")
-                        password  = input("Enter a password:")
-                        password1 = input("Confirm password:")
+                        #Julia validation
+                        validation = userval(username)
+                        if validation == True:
+                            password  = input("Enter a password:")
+                            password1 = input("Confirm password:")
+                        else: 
+                            print("Error")
+                            username
                         if password == password1:
                             createUser("System-Administrator")
                             break
@@ -132,7 +138,7 @@ while True:
                     
             elif currentRole == "System-Administrator":
                 while True:
-                    systemAdminInput = input("Create Advisor or Logout (c/l): ")
+                    systemAdminInput = input("Create Advisor or New Client or Logout (c/n/l): ")
                     if systemAdminInput == "c":
                         username  = input("Enter a username:")
                         password  = input("Enter a password:")
@@ -141,6 +147,14 @@ while True:
                             createUser("Advisor")
                             break
                         print("Passwords do NOT match!")
+                    elif systemAdminInput == "n":
+                        username  = input("Enter a username:")
+                        password  = input("Enter a password:")
+                        password1 = input("Confirm password:")
+                        if password == password1:
+                            createUser("client")
+                            break                        
+
                     elif systemAdminInput == "l":
                         logout()
                         break
