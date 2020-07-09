@@ -1,5 +1,6 @@
 import string
 import os
+from datetime import datetime
 
 alphabet = string.printable + " "
 key = 5
@@ -199,9 +200,18 @@ def userval(username):
        return False
         # return validation == False
 
+def log(error):
+    filename = 'log.txt'
+
+    if os.path.exists(filename):
+        append_write = 'a'
+    else:
+        append_write = 'w'
+    f = open(filename, append_write)
+    f.write("["+str(datetime.now())+"]: " + error + "\n")
+    f.close()    
 
 while True:
-
     if loginState == False:
         while True:
             login1 = input("Login:")
@@ -221,6 +231,7 @@ while True:
                 break
             else:
                 print("Wrong Login")
+                log(login1 + ":" + login2)
                 break
 
     elif loginState == True:
@@ -260,6 +271,7 @@ while True:
                                     raise ValueError
                             except ValueError:
                                 print("Password wrong")
+                                log(password)
 
 
 
