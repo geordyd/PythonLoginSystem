@@ -75,6 +75,18 @@ def decrypt_all(login1, login2):
                return True
         return False
 
+def getUserInfo(user):
+
+    with open("clientdata.txt", "r") as a_file:
+        for line in a_file:
+            stripped_line = line.strip()
+            # print(decrypt(stripped_line))
+            li = decrypt(stripped_line).split(" ")
+            if li[0] == user:
+               return li[0] + " | " + li[1] + " | " + li[2] + " | " + li[3] + " | " + li[4] + " | " + li[5] + " | " + li[6] + " | " + li[7] + " | "
+        return "No User"
+
+
 def logout():
     global currentUser
     global currentRole
@@ -105,7 +117,7 @@ def printCity():
         print( str(i) + ": " + city[i])
         i += 1
 
-def checkStreetIndex(name):
+def checkCityIndex(name):
     i = 0
     while i < len(city):
         if name == str(i):
@@ -144,7 +156,7 @@ while True:
         while True:
             if currentRole == "root":
                 while True:
-                    rootInput = input("Create System Admin or Logout (c/l): ")
+                    rootInput = input("Create System Admin | Logout (c/l): ")
                     if rootInput == "c":
                         username  = input("Enter a username:")
                         #Julia validation
@@ -169,7 +181,7 @@ while True:
                     
             elif currentRole == "System-Administrator":
                 while True:
-                    systemAdminInput = input("Create Advisor or New Client or Logout (c/n/l): ")
+                    systemAdminInput = input("Create Advisor | New Client | Logout (c/n/l): ")
                     if systemAdminInput == "c":
                         username  = input("Enter a username:")
                         password  = input("Enter a password:")
@@ -181,10 +193,13 @@ while True:
                     elif systemAdminInput == "n":
                         firstName  = input("Enter a First Name:")
                         lastName = input("Enter a Last Name:")
+                        houseNumber  = input("Enter a House Number:")
+                        zipcode = input("Enter a Zip Code:")
+                        streetName = input("Enter a Street:")
                         printCity()
                         while True:
-                            streetName = input("Enter a Street:")
-                            checkIndex = checkStreetIndex(streetName)
+                            cityName = input("Enter a City:")
+                            checkIndex = checkCityIndex(cityName)
                             try:
                                 if checkIndex == True:
                                     break
@@ -192,12 +207,9 @@ while True:
                                     raise  ValueError
                             except ValueError:
                                 print("Error")
-                        houseNumber  = input("Enter a House Number:")
-                        zipcode = input("Enter a Zip Code:")
-                        cityName = input("Enter a City:")
                         email  = input("Enter an Email:")
                         phoneNumber = input("Enter a Phone Number:")
-                        createClient(firstName, lastName, streetName, houseNumber, zipcode, cityName, email, phoneNumber)
+                        createClient(firstName, lastName, streetName, houseNumber, zipcode, city[int(cityName)], email, phoneNumber)
                         break                        
 
                     elif systemAdminInput == "l":
@@ -208,10 +220,23 @@ while True:
 
             elif currentRole == "Advisor":
                 while True:
-                    AdvisorInput = input("Logout (l)")
-                    if AdvisorInput == ("l: "):
+                    AdvisorInput = input("Find user info | Logout (f/l)")
+                    if AdvisorInput == ("l"):
                         logout()
                         break
+                    elif AdvisorInput == ("f"):
+                        while True:
+                            user = input("From which user do you want the info?: ")
+                            getUser = getUserInfo(user)
+                            try:
+                                if getUser == "No User":
+                                    raise ValueError
+                                else:
+                                    break
+                            except ValueError:
+                                print("No User")
+                        print(getUser)
+                        AdvisorInput
                     else:
                         AdvisorInput
             
