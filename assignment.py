@@ -133,10 +133,10 @@ def pasval(password):
 
     if len(password) >= 5 and len(password) <= 20:
         print("it works")
-        return validationPass == True
+        return True
     else:
         print("ERROR")
-        return validationPass == False
+        return False
 
 
 def userval(username):
@@ -153,18 +153,17 @@ def userval(username):
             if len(username) >= 5 and len(username) <= 20:
                 if any(char.isdigit() for char in username):
                     print("User name it works")
-                    return validation == True
+                    return True
                 else:
-                    print("error number")
+                    return False
             else:
-                print("error len")
+                return False
         else:
-            print("Error letter")
+            return False
 
 
     else:
-        print("ERROR")
-        return validation == False
+       return False
         # return validation == False
 
 
@@ -201,39 +200,70 @@ while True:
                     if rootInput == "c":
                         while True:
                             username = input("Enter a username:")
-                        # Julia validation
                             validation = userval(username)
                             try:
                                 if validation == True:
-                                    while True:
-                                        password = input("Enter a password:")
-                                        validationPass = pasval(password)
-                                        try:
-                                            if validationPass == True:
-                                                print("Login Worked, Hello")
-                                                try:
-                                                    password1 = input("Confirm password:")
-                                                    if password == password1:
-                                                        createUser("System-Administrator")
-                                                        break
-                                                    else:
-                                                        print("Passwords do NOT match!")
-                                                        raise ValueError
-                                                except ValueError:
-                                                    print("Errrrrrooooooorrrrrrr")
-
-                                            else:
-                                                raise ValueError
-                                        except ValueError:
-                                            print("Error")
-                                    # else:
-                                #     print("ERRORSERS")
-                                #     password
+                                    break
                                 else:
-                                    # print("Error at username")
                                     raise ValueError
                             except ValueError:
-                                print("error")
+                                print("Username wrong")
+                        while True:
+                            password = input("Enter a password:")
+                            validationPass = pasval(password)
+                            try: 
+                                if validationPass == True:
+                                    password1 = input("Confirm password:")
+                                    try:
+                                        if password == password1:
+                                            createUser("System-Administrator")
+                                            print("User Created")
+                                            break
+                                        else:
+                                            raise ValueError
+                                    except ValueError:
+                                        print("Password not the same")
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Password wrong")
+
+
+
+                        #     username = input("Enter a username:")
+                        # # Julia validation
+                        #     validation = userval(username)
+                        #     try:
+                        #         if validation == True:
+                        #             while True:
+                        #                 password = input("Enter a password:")
+                        #                 validationPass = pasval(password)
+                        #                 try:
+                        #                     if validationPass == True:
+                        #                         print("Login Worked, Hello")
+                        #                         try:
+                        #                             password1 = input("Confirm password:")
+                        #                             if password == password1:
+                        #                                 createUser("System-Administrator")
+                        #                                 break
+                        #                             else:
+                        #                                 print("Passwords do NOT match!")
+                        #                                 raise ValueError
+                        #                         except ValueError:
+                        #                             print("Errrrrrooooooorrrrrrr")
+
+                        #                     else:
+                        #                         raise ValueError
+                        #                 except ValueError:
+                        #                     print("Error")
+                        #             # else:
+                        #         #     print("ERRORSERS")
+                        #         #     password
+                        #         else:
+                        #             # print("Error at username")
+                        #             raise ValueError
+                        #     except ValueError:
+                        #         print("error")
 
                     elif rootInput == "l":
                         logout()
