@@ -2,6 +2,7 @@ XDxyjrFirnsXDxyjr<Firnsnxywfytw
 FiAnxtwFiAnxtwFiAnxtw
 LjtwiDIjppjwXDxyjr<Firnsnxywfytw
 FiAnxtw
+<<<<<<< HEAD
 <<<<<<< master
 LjtwiDIjppjwFiAnxtw
 RfptRfptFiAnxtw
@@ -13,3 +14,8 @@ $t678_Mfqqt678_XDxyjr<Firnsnxywfytw
 Mfqqt6Mfqqt678_XDxyjr<Firnsnxywfytw
 >>>>>>> System admin validation fix
 Mfqqt678_Mfqqt678_XDxyjr<Firnsnxywfytw
+=======
+Mfqqt678(xikXDxyjr<Firnsnxywfytw
+$t678_Mfqqt678_XDxyjr<Firnsnxywfytw
+Mfqqt6Mfqqt678_XDxyjr<Firnsnxywfytw
+>>>>>>> validatie
