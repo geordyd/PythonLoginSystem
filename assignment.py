@@ -75,6 +75,18 @@ def decrypt_all(login1, login2):
                return True
         return False
 
+def getUserInfo(user):
+
+    with open("clientdata.txt", "r") as a_file:
+        for line in a_file:
+            stripped_line = line.strip()
+            # print(decrypt(stripped_line))
+            li = decrypt(stripped_line).split(" ")
+            if li[0] == user:
+               return li[0] + " | " + li[1] + " | " + li[2] + " | " + li[3] + " | " + li[4] + " | " + li[5] + " | " + li[6] + " | " + li[7] + " | "
+        return "No User"
+
+
 def logout():
     global currentUser
     global currentRole
@@ -208,10 +220,23 @@ while True:
 
             elif currentRole == "Advisor":
                 while True:
-                    AdvisorInput = input("Logout (l)")
-                    if AdvisorInput == ("l: "):
+                    AdvisorInput = input("Find user info | Logout (f/l)")
+                    if AdvisorInput == ("l"):
                         logout()
                         break
+                    elif AdvisorInput == ("f"):
+                        while True:
+                            user = input("From which user do you want the info?: ")
+                            getUser = getUserInfo(user)
+                            try:
+                                if getUser == "No User":
+                                    raise ValueError
+                                else:
+                                    break
+                            except ValueError:
+                                print("No User")
+                        print(getUser)
+                        AdvisorInput
                     else:
                         AdvisorInput
             
