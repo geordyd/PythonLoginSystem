@@ -16,8 +16,8 @@ validation = True
 global validationPass
 validationPass = True
 
-rootUsername = "1"
-rootPassword = "1"
+rootUsername = "RootUser"
+rootPassword = "RootPass"
 
 city = ["Amsterdam", "Rotterdam", "Utrecht", "Eindhoven", "Groningen", "Tilburg", "Almere", "Breda", "Nijmegen",
         "Apeldoorn"]
@@ -288,7 +288,6 @@ def pasval(password):
             if any(char.isupper() for char in password):
                 if any(char.islower() for char in password):
                     if not any(char in spatie for char in password):
-                        print("it works")
                         return True
                     else:
                         return False
@@ -312,7 +311,6 @@ def checkPasswordIndex(password):
             if any(char.isupper() for char in password):
                 if any(char.islower() for char in password):
                     if not any(char in spatie for char in password):
-                        print("it works")
                         return True
                     else:
                         return False
@@ -332,6 +330,17 @@ def checkuserAdmin(username):
     spatie = [' ']
 
     splitstring = username.split()
+    filename = 'userdata.txt'
+
+    splitstring = username.split()
+    if os.path.exists(filename):
+        with open("userdata.txt", "r") as a_file:
+            for line in a_file:
+                stripped_line = line.strip()
+                # print(decrypt(stripped_line))
+                li = decrypt(stripped_line).split(" ")
+                if li[0] == username:
+                    return False
 
     for input in splitstring:
         if input[0].isalpha():
@@ -339,7 +348,6 @@ def checkuserAdmin(username):
                 if any(char.isdigit() for char in username):
                     if any(char in specialSym for char in username):
                         if not any(char in spatie for char in username):
-                            print("User name it works")
                             return True
                         else:
                             return False
@@ -377,7 +385,6 @@ def userval(username):
                 if any(char.isdigit() for char in username):
                     if any(char in specialSym for char in username):
                         if not any(char in spatie for char in username):
-                            print("User name it works")
                             return True
                         else:
                             return False
@@ -407,6 +414,9 @@ def openLog():
         print("No Log")
 
 logincounter = 0
+
+print("Login with the root user: ")
+
 while True:
     if loginState == False:
         while True:
@@ -435,7 +445,7 @@ while True:
                 break
 
     elif loginState == True:
-        print("Welcome: " + currentUser + " User Role: " + currentRole + " LoginState: " + str(loginState))
+        print("Welcome: " + currentUser + ", User Role: " + currentRole)
 
         while True:
             if currentRole == "root":
@@ -617,13 +627,13 @@ while True:
 
             elif currentRole == "Advisor":
                 while True:
-                    AdvisorInput = input("Find user info | Logout (f/l)")
+                    AdvisorInput = input("Find user info | Logout (f/l): ")
                     if AdvisorInput == ("l"):
                         logout()
                         break
                     elif AdvisorInput == ("f"):
                         while True:
-                            user = input("From which user do you want the info?: ")
+                            user = input("From which user do you want the info? (First Name): ")
                             getUser = getUserInfo(user)
                             try:
                                 if getUser == "No User":
