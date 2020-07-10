@@ -403,7 +403,8 @@ while True:
                     rootInput = input("Create System Admin | Logout (c/l): ")
                     if rootInput == "c":
                         while True:
-                            username = input("Enter a username (min 5, max 20, must start with a letter):")
+                            username = input("Enter a username (min 5, max 20, must start with a letter,"
+                                             " must have a digit and - or _ or ' or .):")
                             validation = userval(username)
                             try:
                                 if validation == True:
@@ -413,7 +414,8 @@ while True:
                             except ValueError:
                                 print("Username wrong")
                         while True:
-                            password = input("Enter a password (min 8, max 30, must have a lowercase letter, uppercase letter, one digit and special character):")
+                            password = input("Enter a password (min 8, max 30, must have a lowercase letter,"
+                                             " uppercase letter, one digit and special character):")
                             validationPass = pasval(password)
                             try:
                                 if validationPass == True:
@@ -446,7 +448,8 @@ while True:
                     systemAdminInput = input("Create Advisor | New Client | Logout (c/n/l): ")
                     if systemAdminInput == "c":
                         while True:
-                            username = input("Enter a username (min 5, max 20, must start with a letter):")
+                            username = input("Enter a username (min 5, max 20, must start with a letter,"
+                                             " must have a digit and - or _ or ' or .):")
                             checkUserNameAdmin = checkuserAdmin(username)
                             try:
                                 if checkUserNameAdmin == True:
@@ -457,7 +460,8 @@ while True:
                                 print("Error")
 
                         while True:
-                            password = input("Enter a password (min 8, max 30, must have a lowercase letter, uppercase letter, one digit and special character):")
+                            password = input("Enter a password (min 8, max 30, must have a lowercase letter, "
+                                             "uppercase letter, one digit and special character):")
                             checkPassword = checkPasswordIndex(password)
                             try:
                                 if checkPassword == True:
