@@ -390,9 +390,7 @@ def userval(username):
         else:
             return False
     else:
-<<<<<<< master
-        return False
-        # return validation == False
+       return False
 
 def log(error):
     encryptLog("["+str(datetime.now())+"]: " + error)
@@ -409,23 +407,6 @@ def openLog():
         print("No Log")
 
 logincounter = 0
-
-=======
-       return False
-
-
-def log(error):
-    filename = 'log.txt'
-
-    if os.path.exists(filename):
-        append_write = 'a'
-    else:
-        append_write = 'w'
-    f = open(filename, append_write)
-    f.write("["+str(datetime.now())+"]: " + error + "\n")
-    f.close()
-
->>>>>>> Allevalidaties van klant
 while True:
     if loginState == False:
         while True:
@@ -448,13 +429,9 @@ while True:
                 break
             else:
                 print("Wrong Login")
-<<<<<<< master
                 logincounter += 1
                 if logincounter >= 3:
                     log("Username:" + login1 + "::" + "Password:" + login2)
-=======
-                log(login1 + ":" + login2)
->>>>>>> Allevalidaties van klant
                 break
 
     elif loginState == True:
@@ -496,23 +473,72 @@ while True:
                                     raise ValueError
                             except ValueError:
                                 print("Password wrong")
-                                log(password)
-<<<<<<< master
                     elif rootInput == "o":
                         openLog()
                         rootInput
-=======
 
 
->>>>>>> Allevalidaties van klant
+
+                        #     username = input("Enter a username:")
+                        # # Julia validation
+                        #     validation = userval(username)
+                        #     try:
+                        #         if validation == True:
+                        #             while True:
+                        #                 password = input("Enter a password:")
+                        #                 validationPass = pasval(password)
+                        #                 try:
+                        #                     if validationPass == True:
+                        #                         print("Login Worked, Hello")
+                        #                         try:
+                        #                             password1 = input("Confirm password:")
+                        #                             if password == password1:
+                        #                                 createUser("System-Administrator")
+                        #                                 break
+                        #                             else:
+                        #                                 print("Passwords do NOT match!")
+                        #                                 raise ValueError
+                        #                         except ValueError:
+                        #                             print("Errrrrrooooooorrrrrrr")
+
+                        #                     else:
+                        #                         raise ValueError
+                        #                 except ValueError:
+                        #                     print("Error")
+                        #             # else:
+                        #         #     print("ERRORSERS")
+                        #         #     password
+                        #         else:
+                        #             # print("Error at username")
+                        #             raise ValueError
+                        #     except ValueError:
+                        #         print("error")
+
                     elif rootInput == "l":
                         logout()
                         break
                     else:
                         rootInput
 
-<<<<<<< master
-=======
+                        # Julia validation
+                        # validation = userval(username)
+                        # if validation == True:
+                        #     password  = input("Enter a password:")
+                        #     password1 = input("Confirm password:")
+                        # else:
+                        #     print("Error")
+                        #     username
+                    #     password  = input("Enter a password:")
+                    #     password1 = input("Confirm password:")
+                    #     if password == password1:
+                    #         createUser("System-Administrator")
+                    #         break
+                    #     print("Passwords do NOT match!")
+                    # elif rootInput == "l":
+                    #     logout()
+                    #     break
+                    # else:
+                    #     rootInput
 
 >>>>>>> Allevalidaties van klant
             elif currentRole == "System-Administrator":
