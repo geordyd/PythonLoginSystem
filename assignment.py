@@ -60,6 +60,23 @@ def encryptClient(data):
     f.write(encrypt + "\n")
     f.close()
 
+def encryptLog(data):
+    filename = 'log.txt'
+
+    encrypt = ''
+
+    for i in data:
+        position = alphabet.find(i)
+        newposition = (position + key) % len(alphabet)
+        encrypt += alphabet[newposition]
+
+    if os.path.exists(filename):
+        append_write = 'a'
+    else:
+        append_write = 'w'
+    f = open(filename, append_write)
+    f.write(encrypt + "\n")
+    f.close()
 
 def decrypt(data):
     decrypt = ''
@@ -217,15 +234,20 @@ def userval(username):
         # return validation == False
 
 def log(error):
+    encryptLog("["+str(datetime.now())+"]: " + error)
+       
+
+def openLog():
     filename = 'log.txt'
 
     if os.path.exists(filename):
-        append_write = 'a'
+        with open("log.txt", "r") as a_file:
+            for line in a_file:
+                print(decrypt(line))
     else:
-        append_write = 'w'
-    f = open(filename, append_write)
-    f.write("["+str(datetime.now())+"]: " + error + "\n")
-    f.close()    
+        print("No Log")
+
+logincounter = 0
 
 while True:
     if loginState == False:
@@ -236,6 +258,7 @@ while True:
             if (login1 == rootUsername and login2 == rootPassword):
                 loginAsRoot(login1)
                 loginState = True
+                logincounter = 0
                 break
 
             # Log in as normal user
@@ -244,10 +267,13 @@ while True:
             if result == True:
                 currentUser = login1
                 loginState = True
+                logincounter = 0
                 break
             else:
                 print("Wrong Login")
-                log(login1 + ":" + login2)
+                logincounter += 1
+                if logincounter >= 3:
+                    log("Username:" + login1 + "||" + "Password:" + login2)
                 break
 
     elif loginState == True:
@@ -256,7 +282,7 @@ while True:
         while True:
             if currentRole == "root":
                 while True:
-                    rootInput = input("Create System Admin | Logout (c/l): ")
+                    rootInput = input("Create System Admin | Open Logfile | Logout (c/o/l): ")
                     if rootInput == "c":
                         while True:
                             username = input("Enter a username:")
@@ -288,69 +314,14 @@ while True:
                             except ValueError:
                                 print("Password wrong")
                                 log(password)
-
-
-
-                        #     username = input("Enter a username:")
-                        # # Julia validation
-                        #     validation = userval(username)
-                        #     try:
-                        #         if validation == True:
-                        #             while True:
-                        #                 password = input("Enter a password:")
-                        #                 validationPass = pasval(password)
-                        #                 try:
-                        #                     if validationPass == True:
-                        #                         print("Login Worked, Hello")
-                        #                         try:
-                        #                             password1 = input("Confirm password:")
-                        #                             if password == password1:
-                        #                                 createUser("System-Administrator")
-                        #                                 break
-                        #                             else:
-                        #                                 print("Passwords do NOT match!")
-                        #                                 raise ValueError
-                        #                         except ValueError:
-                        #                             print("Errrrrrooooooorrrrrrr")
-
-                        #                     else:
-                        #                         raise ValueError
-                        #                 except ValueError:
-                        #                     print("Error")
-                        #             # else:
-                        #         #     print("ERRORSERS")
-                        #         #     password
-                        #         else:
-                        #             # print("Error at username")
-                        #             raise ValueError
-                        #     except ValueError:
-                        #         print("error")
-
+                    elif rootInput == "o":
+                        openLog()
+                        rootInput
                     elif rootInput == "l":
                         logout()
                         break
                     else:
                         rootInput
-
-                        # Julia validation
-                        # validation = userval(username)
-                        # if validation == True:
-                        #     password  = input("Enter a password:")
-                        #     password1 = input("Confirm password:")
-                        # else:
-                        #     print("Error")
-                        #     username
-                    #     password  = input("Enter a password:")
-                    #     password1 = input("Confirm password:")
-                    #     if password == password1:
-                    #         createUser("System-Administrator")
-                    #         break
-                    #     print("Passwords do NOT match!")
-                    # elif rootInput == "l":
-                    #     logout()
-                    #     break
-                    # else:
-                    #     rootInput
 
             elif currentRole == "System-Administrator":
                 while True:
