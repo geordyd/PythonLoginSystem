@@ -106,6 +106,7 @@ def decrypt_all(login1, login2):
     else:
         return False
 
+
 def getUserInfo(user):
 
     with open("clientdata.txt", "r") as a_file:
@@ -152,6 +153,7 @@ def printCity():
         print(str(i) + ": " + city[i])
         i += 1
 
+
 def checkCityIndex(name):
     i = 0
     while i < len(city):
@@ -161,17 +163,126 @@ def checkCityIndex(name):
     return False
 
 
-def pasval(password):
-    global rootPassword
-    global validationPass
-
+def checkNameIndex(firstName):
     SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
-                  ']', ':', ';', '<', '>', '.', '?', '/', '.', "'", "\\"]
-    spatie = [' ']
-    # splitstring = password.split()
+                  ']', ':', ';', '<', '>', '.', '?', '/', '.', "'", "\\", ' ']
+    if len(firstName) < 25 and len(firstName) > 1:
+        if not any(char.isdigit() for char in firstName):
+            if not any(char in SpecialSym for char in firstName):
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
 
-    # for char in splitstring:
-        # if char.isalpha():
+
+def checkLastnameIndex(lastName):
+    SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
+                  ']', ':', ';', '<', '>', '.', '?', '/', '.', "'", "\\", ' ']
+    # null = None
+
+    if len(lastName) < 25 and len(lastName) > 1:
+        if not any(char.isdigit() for char in lastName):
+            if not any(char in SpecialSym for char in lastName):
+                if lastName != "":
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def checkHouseNumberIndex(houseNumber):
+    space = [' ']
+    if len(houseNumber) <= 1000:
+        if any(char.isdigit() for char in houseNumber):
+            if not any(char in space for char in houseNumber):
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def checkzipIndex(zipcode):
+    splitstring = zipcode.split()
+    space = [' ']
+    if len(zipcode) == 6:
+        if not any(char in space for char in zipcode):
+            for input in splitstring:
+                if input[4].isalpha() and input[5].isalpha():
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def checkstreetNameIndex(streetName):
+    space = [' ']
+    if len(streetName)< 50 and len(streetName)>= 1:
+        if any(char.isalpha() for char in streetName):
+            if not any(char in space for char in streetName):
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def CheckPhoneNumberIndex(phoneNumber):
+    space = [' ']
+    if len(phoneNumber) == 8:
+        if any(char.isdigit() for char in phoneNumber):
+            if not any(char in space for char in phoneNumber):
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def checkEmailIndex(email):
+    SpecialSym = ['~', '!', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
+                  ']', ':', ';', '<', '>', '?', '/', "'", "\\"]
+    Apenstaart = ['@']
+    Dot = ['.']
+    space = [' ']
+    if any(char in Apenstaart for char in email):
+        if any(char in Dot for char in email):
+            if not any(char in space for char in email):
+                if not any(char in SpecialSym for char in email):
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def pasval(password):
+    SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
+                  ']', ':', ';', '<', '>', '?', '/', '.', "'", "\\"]
+    spatie = [' ']
     if len(password) >= 8 and len(password) <= 30:
         if any(char in SpecialSym for char in password):
             if any(char.isupper() for char in password):
@@ -192,10 +303,59 @@ def pasval(password):
         return False
 
 
-def userval(username):
-    global rootUsername
-    global validation
+def checkPasswordIndex(password):
+    SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
+                  ']', ':', ';', '<', '>', '?', '/', '.', "'", "\\"]
+    spatie = [' ']
+    if len(password) >= 8 and len(password) <= 30:
+        if any(char in SpecialSym for char in password):
+            if any(char.isupper() for char in password):
+                if any(char.islower() for char in password):
+                    if not any(char in spatie for char in password):
+                        print("it works")
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+    else:
+        print("ERROR")
+        return False
 
+
+def checkuserAdmin(username):
+    specialSym = ['-', '_', "'", '.']
+    spatie = [' ']
+
+    splitstring = username.split()
+
+    for input in splitstring:
+        if input[0].isalpha():
+            if len(username) >= 5 and len(username) <= 20:
+                if any(char.isdigit() for char in username):
+                    if any(char in specialSym for char in username):
+                        if not any(char in spatie for char in username):
+                            print("User name it works")
+                            return True
+                        else:
+                            return False
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def userval(username):
     specialSym = ['-', '_',"'",'.']
     spatie = [' ']
 
@@ -230,8 +390,7 @@ def userval(username):
         else:
             return False
     else:
-        return False
-        # return validation == False
+       return False
 
 def log(error):
     encryptLog("["+str(datetime.now())+"]: " + error)
@@ -248,7 +407,6 @@ def openLog():
         print("No Log")
 
 logincounter = 0
-
 while True:
     if loginState == False:
         while True:
@@ -285,7 +443,8 @@ while True:
                     rootInput = input("Create System Admin | Open Logfile | Logout (c/o/l): ")
                     if rootInput == "c":
                         while True:
-                            username = input("Enter a username:")
+                            username = input("Enter a username (min 5, max 20, must start with a letter,"
+                                             " must have a digit and - or _ or ' or .):")
                             validation = userval(username)
                             try:
                                 if validation == True:
@@ -295,7 +454,8 @@ while True:
                             except ValueError:
                                 print("Username wrong or already exists")
                         while True:
-                            password = input("Enter a password:")
+                            password = input("Enter a password (min 8, max 30, must have a lowercase letter,"
+                                             " uppercase letter, one digit and special character):")
                             validationPass = pasval(password)
                             try:
                                 if validationPass == True:
@@ -313,36 +473,167 @@ while True:
                                     raise ValueError
                             except ValueError:
                                 print("Password wrong")
-                                log(password)
                     elif rootInput == "o":
                         openLog()
                         rootInput
+
+
+
+                        #     username = input("Enter a username:")
+                        # # Julia validation
+                        #     validation = userval(username)
+                        #     try:
+                        #         if validation == True:
+                        #             while True:
+                        #                 password = input("Enter a password:")
+                        #                 validationPass = pasval(password)
+                        #                 try:
+                        #                     if validationPass == True:
+                        #                         print("Login Worked, Hello")
+                        #                         try:
+                        #                             password1 = input("Confirm password:")
+                        #                             if password == password1:
+                        #                                 createUser("System-Administrator")
+                        #                                 break
+                        #                             else:
+                        #                                 print("Passwords do NOT match!")
+                        #                                 raise ValueError
+                        #                         except ValueError:
+                        #                             print("Errrrrrooooooorrrrrrr")
+
+                        #                     else:
+                        #                         raise ValueError
+                        #                 except ValueError:
+                        #                     print("Error")
+                        #             # else:
+                        #         #     print("ERRORSERS")
+                        #         #     password
+                        #         else:
+                        #             # print("Error at username")
+                        #             raise ValueError
+                        #     except ValueError:
+                        #         print("error")
+
                     elif rootInput == "l":
                         logout()
                         break
                     else:
                         rootInput
 
+                        # Julia validation
+                        # validation = userval(username)
+                        # if validation == True:
+                        #     password  = input("Enter a password:")
+                        #     password1 = input("Confirm password:")
+                        # else:
+                        #     print("Error")
+                        #     username
+                    #     password  = input("Enter a password:")
+                    #     password1 = input("Confirm password:")
+                    #     if password == password1:
+                    #         createUser("System-Administrator")
+                    #         break
+                    #     print("Passwords do NOT match!")
+                    # elif rootInput == "l":
+                    #     logout()
+                    #     break
+                    # else:
+                    #     rootInput
+
+>>>>>>> Allevalidaties van klant
             elif currentRole == "System-Administrator":
                 while True:
                     systemAdminInput = input("Create Advisor | New Client | Logout (c/n/l): ")
                     if systemAdminInput == "c":
-                        username = input("Enter a username:")
-                        password = input("Enter a password:")
+                        while True:
+                            username = input("Enter a username (min 5, max 20, must start with a letter,"
+                                             " must have a digit and - or _ or ' or .):")
+                            checkUserNameAdmin = checkuserAdmin(username)
+                            try:
+                                if checkUserNameAdmin == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            password = input("Enter a password (min 8, max 30, must have a lowercase letter, "
+                                             "uppercase letter, one digit and special character):")
+                            checkPassword = checkPasswordIndex(password)
+                            try:
+                                if checkPassword == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
                         password1 = input("Confirm password:")
                         if password == password1:
                             createUser("Advisor")
                             break
                         print("Passwords do NOT match!")
                     elif systemAdminInput == "n":
-                        firstName = input("Enter a First Name:")
-                        lastName = input("Enter a Last Name:")
-                        houseNumber  = input("Enter a House Number:")
-                        zipcode = input("Enter a Zip Code:")
-                        streetName = input("Enter a Street:")
-                        printCity()
                         while True:
-                            cityName = input("Enter a City:")
+                            firstName = input("Enter a First Name:")
+                            checkName = checkNameIndex(firstName)
+                            try:
+                                if checkName == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            lastName = input("Enter a Last Name:")
+                            checkLastName = checkLastnameIndex(lastName)
+                            try:
+                                if checkLastName == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            houseNumber = input("Enter a House Number (123):")
+                            checkHouseNumber = checkHouseNumberIndex(houseNumber)
+                            try:
+                                if checkHouseNumber == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            zipcode = input("Enter a Zip Code (DDDDXX):")
+                            checkZipCode = checkzipIndex(zipcode)
+                            try:
+                                if checkZipCode == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+
+                        while True:
+                            streetName = input("Enter a Street:")
+                            checkStreetName= checkstreetNameIndex(streetName)
+                            try:
+                                if checkStreetName == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            printCity()
+                            cityName = input("Enter a City (choose an index from 0-9):")
                             checkIndex = checkCityIndex(cityName)
                             try:
                                 if checkIndex == True:
@@ -351,10 +642,31 @@ while True:
                                     raise ValueError
                             except ValueError:
                                 print("Error")
-                        email  = input("Enter an Email:")
-                        phoneNumber = input("Enter a Phone Number:")
-                        createClient(firstName, lastName, streetName, houseNumber, zipcode, city[int(cityName)], email, phoneNumber)
-                        break                        
+
+                        while True:
+                            email  = input("Enter an Email (test@test.nl):")
+                            checkEmail = checkEmailIndex(email)
+                            try:
+                                if checkEmail == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            phoneNumber = input("Enter a Phone Number (+31-6-DDDD-DDDD):")
+                            checkPhoneNumber = CheckPhoneNumberIndex(phoneNumber)
+                            try:
+                                if checkPhoneNumber == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+                        createClient(firstName, lastName, streetName, houseNumber, zipcode, city[int(cityName)],
+                                     email, phoneNumber)
+                        break
                     elif systemAdminInput == "l":
                         logout()
                         break
