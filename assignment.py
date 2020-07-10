@@ -116,7 +116,7 @@ def getUserInfo(user):
             li = decrypt(stripped_line).split(" ")
             if li[0] == user:
                return li[0] + " | " + li[1] + " | " + li[2] + " | " + li[3] + " | " + li[4] + " | " + li[5] + " | " + li[6] + " | " + li[7] + " | "
-        return "No User"
+        return "No Client"
 
 
 def logout():
