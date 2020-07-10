@@ -72,15 +72,21 @@ def decrypt(data):
 
 
 def decrypt_all(login1, login2):
-    with open("userdata.txt", "r") as a_file:
-        for line in a_file:
-            stripped_line = line.strip()
-            # print(decrypt(stripped_line))
-            li = decrypt(stripped_line).split(" ")
-            if li[0] == login1 and li[1] == login2:
-                global currentRole
-                currentRole = li[2]
-                return True
+
+    filename = 'userdata.txt'
+
+    if os.path.exists(filename):
+        with open("userdata.txt", "r") as a_file:
+            for line in a_file:
+                stripped_line = line.strip()
+                # print(decrypt(stripped_line))
+                li = decrypt(stripped_line).split(" ")
+                if li[0] == login1 and li[1] == login2:
+                    global currentRole
+                    currentRole = li[2]
+                    return True
+            return False
+    else:
         return False
 
 def getUserInfo(user):
@@ -176,8 +182,18 @@ def userval(username):
     specialSym = ['-', '_',"'",'.']
     spatie = [' ']
 
-    splitstring = username.split()
+    filename = 'userdata.txt'
 
+    splitstring = username.split()
+    if os.path.exists(filename):
+        with open("userdata.txt", "r") as a_file:
+            for line in a_file:
+                stripped_line = line.strip()
+                # print(decrypt(stripped_line))
+                li = decrypt(stripped_line).split(" ")
+                if li[0] == username:
+                    return False
+    
     for input in splitstring:
         if input[0].isalpha():
             if len(username) >= 5 and len(username) <= 20:
@@ -197,7 +213,7 @@ def userval(username):
         else:
             return False
     else:
-       return False
+        return False
         # return validation == False
 
 def log(error):
@@ -251,7 +267,7 @@ while True:
                                 else:
                                     raise ValueError
                             except ValueError:
-                                print("Username wrong")
+                                print("Username wrong or already exists")
                         while True:
                             password = input("Enter a password:")
                             validationPass = pasval(password)
