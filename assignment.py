@@ -273,7 +273,7 @@ while True:
                 print("Wrong Login")
                 logincounter += 1
                 if logincounter >= 3:
-                    log("Username:" + login1 + "||" + "Password:" + login2)
+                    log("Username:" + login1 + "::" + "Password:" + login2)
                 break
 
     elif loginState == True:
