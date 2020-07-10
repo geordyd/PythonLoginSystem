@@ -158,11 +158,15 @@ def checkNameIndex(firstName):
 def checkLastnameIndex(lastName):
     SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
                   ']', ':', ';', '<', '>', '.', '?', '/', '.', "'", "\\", ' ']
+    # null = None
 
     if len(lastName) < 25 and len(lastName) > 1:
         if not any(char.isdigit() for char in lastName):
             if not any(char in SpecialSym for char in lastName):
-                return True
+                if lastName != "":
+                    return True
+                else:
+                    return False
             else:
                 return False
         else:
@@ -204,9 +208,13 @@ def checkzipIndex(zipcode):
 
 
 def checkstreetNameIndex(streetName):
+    space = [' ']
     if len(streetName)< 50 and len(streetName)>= 1:
         if any(char.isalpha() for char in streetName):
-            return True
+            if not any(char in space for char in streetName):
+                return True
+            else:
+                return False
         else:
             return False
     else:
@@ -239,7 +247,7 @@ def checkEmailIndex(email):
                 if not any(char in SpecialSym for char in email):
                     return True
                 else:
-                    return False 
+                    return False
             else:
                 return False
         else:
@@ -249,9 +257,6 @@ def checkEmailIndex(email):
 
 
 def pasval(password):
-    global rootPassword
-    global validationPass
-
     SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
                   ']', ':', ';', '<', '>', '?', '/', '.', "'", "\\"]
     spatie = [' ']
@@ -275,7 +280,62 @@ def pasval(password):
         return False
 
 
+def checkPasswordIndex(password):
+    SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
+                  ']', ':', ';', '<', '>', '?', '/', '.', "'", "\\"]
+    spatie = [' ']
+    if len(password) >= 8 and len(password) <= 30:
+        if any(char in SpecialSym for char in password):
+            if any(char.isupper() for char in password):
+                if any(char.islower() for char in password):
+                    if not any(char in spatie for char in password):
+                        print("it works")
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+    else:
+        print("ERROR")
+        return False
+
+
+def checkuserAdmin(username):
+    specialSym = ['-', '_', "'", '.']
+    spatie = [' ']
+
+    splitstring = username.split()
+
+    for input in splitstring:
+        if input[0].isalpha():
+            if len(username) >= 5 and len(username) <= 20:
+                if any(char.isdigit() for char in username):
+                    if any(char in specialSym for char in username):
+                        if not any(char in spatie for char in username):
+                            print("User name it works")
+                            return True
+                        else:
+                            return False
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
 def userval(username):
+    global rootUsername
+    global validation
+
     specialSym = ['-', '_',"'",'.']
     spatie = [' ']
 
@@ -301,7 +361,7 @@ def userval(username):
             return False
     else:
        return False
-        
+
 
 def log(error):
     filename = 'log.txt'
@@ -388,8 +448,28 @@ while True:
                 while True:
                     systemAdminInput = input("Create Advisor | New Client | Logout (c/n/l): ")
                     if systemAdminInput == "c":
-                        username = input("Enter a username:")
-                        password = input("Enter a password:")
+                        while True:
+                            username = input("Enter a username:")
+                            checkUserNameAdmin = checkuserAdmin(username)
+                            try:
+                                if checkUserNameAdmin == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            password = input("Enter a password:")
+                            checkPassword = checkPasswordIndex(password)
+                            try:
+                                if checkPassword == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
                         password1 = input("Confirm password:")
                         if password == password1:
                             createUser("Advisor")
