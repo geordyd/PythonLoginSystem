@@ -106,6 +106,7 @@ def decrypt_all(login1, login2):
     else:
         return False
 
+
 def getUserInfo(user):
 
     with open("clientdata.txt", "r") as a_file:
@@ -152,6 +153,7 @@ def printCity():
         print(str(i) + ": " + city[i])
         i += 1
 
+
 def checkCityIndex(name):
     i = 0
     while i < len(city):
@@ -161,17 +163,121 @@ def checkCityIndex(name):
     return False
 
 
+def checkNameIndex(firstName):
+    SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
+                  ']', ':', ';', '<', '>', '.', '?', '/', '.', "'", "\\", ' ']
+    if len(firstName) < 25 and len(firstName) > 1:
+        if not any(char.isdigit() for char in firstName):
+            if not any(char in SpecialSym for char in firstName):
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def checkLastnameIndex(lastName):
+    SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
+                  ']', ':', ';', '<', '>', '.', '?', '/', '.', "'", "\\", ' ']
+
+    if len(lastName) < 25 and len(lastName) > 1:
+        if not any(char.isdigit() for char in lastName):
+            if not any(char in SpecialSym for char in lastName):
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def checkHouseNumberIndex(houseNumber):
+    space = [' ']
+    if len(houseNumber) <= 1000:
+        if any(char.isdigit() for char in houseNumber):
+            if not any(char in space for char in houseNumber):
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def checkzipIndex(zipcode):
+    splitstring = zipcode.split()
+    space = [' ']
+    if len(zipcode) == 6:
+        if not any(char in space for char in zipcode):
+            for input in splitstring:
+                if input[4].isalpha() and input[5].isalpha():
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def checkstreetNameIndex(streetName):
+    if len(streetName)< 50 and len(streetName)>= 1:
+        if any(char.isalpha() for char in streetName):
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+def CheckPhoneNumberIndex(phoneNumber):
+    space = [' ']
+    if len(phoneNumber) == 8:
+        if any(char.isdigit() for char in phoneNumber):
+            if not any(char in space for char in phoneNumber):
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+def checkEmailIndex(email):
+    SpecialSym = ['~', '!', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
+                  ']', ':', ';', '<', '>', '?', '/', "'", "\\"]
+    Apenstaart = ['@']
+    Dot = ['.']
+    space = [' ']
+    if any(char in Apenstaart for char in email):
+        if any(char in Dot for char in email):
+            if not any(char in space for char in email):
+                if not any(char in SpecialSym for char in email):
+                    return True
+                else:
+                    return False 
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
 def pasval(password):
     global rootPassword
     global validationPass
 
     SpecialSym = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '_', '-', '+', '=', '`', '|', '(', ')', '{', '}', '[',
-                  ']', ':', ';', '<', '>', '.', '?', '/', '.', "'", "\\"]
+                  ']', ':', ';', '<', '>', '?', '/', '.', "'", "\\"]
     spatie = [' ']
-    # splitstring = password.split()
-
-    # for char in splitstring:
-        # if char.isalpha():
     if len(password) >= 8 and len(password) <= 30:
         if any(char in SpecialSym for char in password):
             if any(char.isupper() for char in password):
@@ -193,9 +299,6 @@ def pasval(password):
 
 
 def userval(username):
-    global rootUsername
-    global validation
-
     specialSym = ['-', '_',"'",'.']
     spatie = [' ']
 
@@ -230,6 +333,7 @@ def userval(username):
         else:
             return False
     else:
+<<<<<<< master
         return False
         # return validation == False
 
@@ -249,6 +353,22 @@ def openLog():
 
 logincounter = 0
 
+=======
+       return False
+        
+
+def log(error):
+    filename = 'log.txt'
+
+    if os.path.exists(filename):
+        append_write = 'a'
+    else:
+        append_write = 'w'
+    f = open(filename, append_write)
+    f.write("["+str(datetime.now())+"]: " + error + "\n")
+    f.close()
+
+>>>>>>> Allevalidaties van klant
 while True:
     if loginState == False:
         while True:
@@ -271,9 +391,13 @@ while True:
                 break
             else:
                 print("Wrong Login")
+<<<<<<< master
                 logincounter += 1
                 if logincounter >= 3:
                     log("Username:" + login1 + "::" + "Password:" + login2)
+=======
+                log(login1 + ":" + login2)
+>>>>>>> Allevalidaties van klant
                 break
 
     elif loginState == True:
@@ -314,15 +438,24 @@ while True:
                             except ValueError:
                                 print("Password wrong")
                                 log(password)
+<<<<<<< master
                     elif rootInput == "o":
                         openLog()
                         rootInput
+=======
+
+
+>>>>>>> Allevalidaties van klant
                     elif rootInput == "l":
                         logout()
                         break
                     else:
                         rootInput
 
+<<<<<<< master
+=======
+
+>>>>>>> Allevalidaties van klant
             elif currentRole == "System-Administrator":
                 while True:
                     systemAdminInput = input("Create Advisor | New Client | Logout (c/n/l): ")
@@ -335,13 +468,64 @@ while True:
                             break
                         print("Passwords do NOT match!")
                     elif systemAdminInput == "n":
-                        firstName = input("Enter a First Name:")
-                        lastName = input("Enter a Last Name:")
-                        houseNumber  = input("Enter a House Number:")
-                        zipcode = input("Enter a Zip Code:")
-                        streetName = input("Enter a Street:")
-                        printCity()
                         while True:
+                            firstName = input("Enter a First Name:")
+                            checkName = checkNameIndex(firstName)
+                            try:
+                                if checkName == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            lastName = input("Enter a Last Name:")
+                            checkLastName = checkLastnameIndex(lastName)
+                            try:
+                                if checkLastName == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            houseNumber = input("Enter a House Number:")
+                            checkHouseNumber = checkHouseNumberIndex(houseNumber)
+                            try:
+                                if checkHouseNumber == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            zipcode = input("Enter a Zip Code:")
+                            checkZipCode = checkzipIndex(zipcode)
+                            try:
+                                if checkZipCode == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+
+                        while True:
+                            streetName = input("Enter a Street:")
+                            checkStreetName= checkstreetNameIndex(streetName)
+                            try:
+                                if checkStreetName == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            printCity()
                             cityName = input("Enter a City:")
                             checkIndex = checkCityIndex(cityName)
                             try:
@@ -351,10 +535,31 @@ while True:
                                     raise ValueError
                             except ValueError:
                                 print("Error")
-                        email  = input("Enter an Email:")
-                        phoneNumber = input("Enter a Phone Number:")
-                        createClient(firstName, lastName, streetName, houseNumber, zipcode, city[int(cityName)], email, phoneNumber)
-                        break                        
+
+                        while True:
+                            email  = input("Enter an Email:")
+                            checkEmail = checkEmailIndex(email)
+                            try:
+                                if checkEmail == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+
+                        while True:
+                            phoneNumber = input("Enter a Phone Number:")
+                            checkPhoneNumber = CheckPhoneNumberIndex(phoneNumber)
+                            try:
+                                if checkPhoneNumber == True:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print("Error")
+                        createClient(firstName, lastName, streetName, houseNumber, zipcode, city[int(cityName)],
+                                     email, phoneNumber)
+                        break
                     elif systemAdminInput == "l":
                         logout()
                         break
