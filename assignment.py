@@ -477,70 +477,12 @@ while True:
                         openLog()
                         rootInput
 
-
-
-                        #     username = input("Enter a username:")
-                        # # Julia validation
-                        #     validation = userval(username)
-                        #     try:
-                        #         if validation == True:
-                        #             while True:
-                        #                 password = input("Enter a password:")
-                        #                 validationPass = pasval(password)
-                        #                 try:
-                        #                     if validationPass == True:
-                        #                         print("Login Worked, Hello")
-                        #                         try:
-                        #                             password1 = input("Confirm password:")
-                        #                             if password == password1:
-                        #                                 createUser("System-Administrator")
-                        #                                 break
-                        #                             else:
-                        #                                 print("Passwords do NOT match!")
-                        #                                 raise ValueError
-                        #                         except ValueError:
-                        #                             print("Errrrrrooooooorrrrrrr")
-
-                        #                     else:
-                        #                         raise ValueError
-                        #                 except ValueError:
-                        #                     print("Error")
-                        #             # else:
-                        #         #     print("ERRORSERS")
-                        #         #     password
-                        #         else:
-                        #             # print("Error at username")
-                        #             raise ValueError
-                        #     except ValueError:
-                        #         print("error")
-
                     elif rootInput == "l":
                         logout()
                         break
                     else:
                         rootInput
 
-                        # Julia validation
-                        # validation = userval(username)
-                        # if validation == True:
-                        #     password  = input("Enter a password:")
-                        #     password1 = input("Confirm password:")
-                        # else:
-                        #     print("Error")
-                        #     username
-                    #     password  = input("Enter a password:")
-                    #     password1 = input("Confirm password:")
-                    #     if password == password1:
-                    #         createUser("System-Administrator")
-                    #         break
-                    #     print("Passwords do NOT match!")
-                    # elif rootInput == "l":
-                    #     logout()
-                    #     break
-                    # else:
-                    #     rootInput
-
->>>>>>> Allevalidaties van klant
             elif currentRole == "System-Administrator":
                 while True:
                     systemAdminInput = input("Create Advisor | New Client | Logout (c/n/l): ")
